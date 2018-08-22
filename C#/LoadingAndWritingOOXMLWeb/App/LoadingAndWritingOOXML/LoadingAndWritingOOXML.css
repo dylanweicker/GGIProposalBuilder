@@ -1,8 +1,67 @@
 ﻿/* Page-specific styling */
 
+body{
+    margin:0;
+    padding: 0;
+    background-color: #ddd;
+}
+
+h3{
+    margin-bottom: 0;
+}
+
 button{
-    width: 150px;
+    width: 100%;
     height: 25px;
     margin-top:15px;
     padding: 0px; 
 }
+
+#content-main{
+    margin-top: 0;
+    background-color: white;
+}
+
+.ggi-bgColor-themeDark {
+    box-sizing: border-box;
+    background-color: #253D4A;
+    width: 100%;
+    margin: 0!important;
+}
+
+.ggi-tab-holder {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #ddd;
+    border-bottom: 1px #888 solid;
+    padding: 10px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: row;
+}
+.ggi-tab {
+    background-color: #eee;
+    border: 1px #888 solid;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+    padding: 8px;
+}
+
+.ggi-tab:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.ggi-tab.active {
+    background-color: #fff;
+    position: relative;
+    bottom: -1px;
+    border-bottom: 1px #fff solid;
+    z-index: 2;
+}
+
+.display-none{
+    display: none;
+}
+

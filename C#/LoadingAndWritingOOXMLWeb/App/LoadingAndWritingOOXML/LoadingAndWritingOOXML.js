@@ -30,8 +30,8 @@ Office.initialize = function (reason) {
 };
 
 
+//Add specified file to the end of the document
 function writeContent(fileName) {
-
     var myOOXMLRequest = new XMLHttpRequest();
     var myXML;
     myOOXMLRequest.open('GET', fileName, false);
@@ -39,84 +39,118 @@ function writeContent(fileName) {
     if (myOOXMLRequest.status === 200) {
         myXML = myOOXMLRequest.responseText;
     }
-    Office.context.document.setSelectedDataAsync(myXML, { coercionType: 'ooxml' });
+    Word.run(function (ctx) {
+        var body = ctx.document.body;
+        body.insertOoxml(myXML, Word.InsertLocation.end);
+        body.insertBreak("Next", Word.InsertLocation.end);
+
+        // Synchronize the document state by executing the queued commands,
+        // and return a promise to indicate task completion.
+        return ctx.sync().then(function () {
+            console.log('Added ' + filename + " to end of document.");
+        });
+    })
+        .catch(function (error) {
+            console.log('Error: ' + JSON.stringify(error));
+            if (error instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+            }
+        });
+}
+
+//Go through document and make all place-holder text into a Content Control
+function createContentControls() {
+    Word.run(function (ctx) {
+        // Queue a command to search the document for the string "Contoso".
+        // Create a proxy search results collection object.
+        var results = ctx.document.body.search("[CLIENT NAME]");
+
+        // Queue a command to load all of the properties on the search results collection object.
+        ctx.load(results);
+
+        // Synchronize the document state by executing the queued commands,
+        // and returning a promise to indicate task completion.        
+        return ctx.sync().then(function () {
+
+            // Once we have the results, we iterate through each result and set some properties on
+            // each search result proxy object. Then we queue a command to wrap each search result
+            // with a content control and set the tag and title property on the content control.
+            for (var i = 0; i < results.items.length; i++) {
+                var cc = results.items[i].insertContentControl();
+                cc.tag = "client";  // This value is used in another part of this sample.
+                cc.title = "Client Name";
+            }
+        })
+            // Synchronize the document state by executing the queued commands.
+            .then(ctx.sync)
+            .then(function () {
+                handleSuccess();
+            })
+            .catch(function (error) {
+                handleError(error);
+            })
+    });
+}
+
+//Replace all Content Controls with the appropriate text
+function changeContentControl(control, newText) {
+    Word.run(function (ctx) {
+        var ccs = ctx.document.contentControls.getByTag(control);
+        ctx.load(ccs, 'tag');
+        return ctx.sync().then(function () {
+            for (var i = 0; i < ccs.items.length; i++) {
+                ccs.items[i].insertText(newText, "Replace");
+            }
+        });
+    })
+        .catch(function (error) {
+            console.log('Error: ' + JSON.stringify(error));
+            if (error instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+            }
+        });
+}
+
+function addComponents() {
+    $('#addComponentsButton').addClass('active');
+    $('#addComponents').removeClass('display-none');
+    $('#changeValuesButton').removeClass('active');
+    $('#changeValues').addClass('display-none');
 
 }
 
-function writeMarkup(fileName) {
+function changeValues() {
+    $('#changeValuesButton').addClass('active');
+    $('#changeValues').removeClass('display-none');
+    $('#addComponentsButton').removeClass('active');
+    $('#addComponents').addClass('display-none');
 
-    var myOOXMLRequest = new XMLHttpRequest();
-    var myXML;
-
-    //Set the format for the markup
-    myOOXMLRequest.open('GET', '../../OOXMLSamples/FormatForMarkup.xml', false);
-    myOOXMLRequest.send();
-    if (myOOXMLRequest.status === 200) {
-        myXML = myOOXMLRequest.responseText;
-    }
-    Office.context.document.setSelectedDataAsync(myXML, { coercionType: 'ooxml' });
-
-    //Insert the markup as text
-    myOOXMLRequest.open('GET', fileName, false);
-    myOOXMLRequest.send();
-    if (myOOXMLRequest.status === 200) {
-        myXML = myOOXMLRequest.responseText;
-    }
-    Office.context.document.setSelectedDataAsync(myXML, { coercionType: 'text' });
-
+    //Ensure all place holder text is a content control
+    createContentControls();
 }
 
+
+//Specifiy What method each button should call
 function clickHandler() {
+    $('#addCoverLetter').click(function () { writeContent('../../documents/executive/CoverLetter.xml'); });
+    $('#addExecutiveSummary').click(function () { writeContent('../../documents/executive/ExecutiveSummary.xml'); });
 
-    //This function resets the event handlers for the eleven buttons in the task pane to the function that matches the user's radio button selection
-    //See more info on this in the file LoadingAndWritingOOXML.html
-    clearButtons();
+    $('#addProfile').click(function () { writeContent('../../documents/qualifications/ProfileOfGGI.xml'); });
+    $('#addTeamText').click(function () { writeContent('../../documents/qualifications/TeamIntroductoryText.xml'); });
+    $('#addOrgChart').click(function () { writeContent('../../documents/qualifications/OrganizationalChart.xml'); });
+    $('#addRoles').click(function () { writeContent('../../documents/qualifications/Roles.xml'); });
 
-    if ($('#setOOXMLContent').is(':checked')) {
+    $('#createContentControls').click(createContentControls);
+    $('#changeContentControl').click(function () { changeContentControl("client", $('#clientName').val()); });
 
-        $('#setFText').click(function () { writeContent('../../OOXMLSamples/TextWithDirectFormat.xml'); });
-        $('#setSText').click(function () { writeContent('../../OOXMLSamples/TextWithStyle.xml'); });
-        $('#setImage').click(function () { writeContent('../../OOXMLSamples/SimpleImage.xml'); });
-        $('#setPhoto').click(function () { writeContent('../../OOXMLSamples/FormattedImage.xml'); });
-        $('#setBox').click(function () { writeContent('../../OOXMLSamples/TextBoxWordArt.xml'); });
-        $('#setShape').click(function () { writeContent('../../OOXMLSamples/ShapeWithText.xml'); });
-        $('#setControl').click(function () { writeContent('../../OOXMLSamples/ContentControl.xml'); });
-        $('#setFTable').click(function () { writeContent('../../OOXMLSamples/TableWithDirectFormat.xml'); });2
-        $('#setSTable').click(function () { writeContent('../../OOXMLSamples/TableStyled.xml'); });
-        $('#setSmartArt').click(function () { writeContent('../../OOXMLSamples/SmartArt.xml'); });
-        $('#setChart').click(function () { writeContent('../../OOXMLSamples/Chart.xml'); });
-    }
-
-    else {
-        $('#setFText').click(function () { writeMarkup('../../OOXMLSamples/TextWithDirectFormat.xml'); });
-        $('#setSText').click(function () { writeMarkup('../../OOXMLSamples/TextWithStyle.xml'); });
-        $('#setImage').click(function () { writeMarkup('../../OOXMLSamples/SimpleImage.xml'); });
-        $('#setPhoto').click(function () { writeMarkup('../../OOXMLSamples/FormattedImageMarkup.xml'); });
-        $('#setBox').click(function () { writeMarkup('../../OOXMLSamples/TextBoxWordArt.xml'); });
-        $('#setShape').click(function () { writeMarkup('../../OOXMLSamples/ShapeWithText.xml'); });
-        $('#setControl').click(function () { writeMarkup('../../OOXMLSamples/ContentControl.xml'); });
-        $('#setFTable').click(function () { writeMarkup('../../OOXMLSamples/TableWithDirectFormat.xml'); });
-        $('#setSTable').click(function () { writeMarkup('../../OOXMLSamples/TableStyled.xml'); });
-        $('#setSmartArt').click(function () { writeMarkup('../../OOXMLSamples/SmartArt.xml'); });
-        $('#setChart').click(function () { writeMarkup('../../OOXMLSamples/ChartMarkup.xml'); })
-    }
+    $('#addComponentsButton').click(function () { addComponents(); });
+    $('#changeValuesButton').click(function () { changeValues(); });
 }
 
-function clearButtons() {
 
-    $('#setFText').unbind('click');
-    $('#setSText').unbind('click');
-    $('#setImage').unbind('click');
-    $('#setPhoto').unbind('click');
-    $('#setBox').unbind('click');
-    $('#setShape').unbind('click');
-    $('#setControl').unbind('click');
-    $('#setFTable').unbind('click');
-    $('#setSTable').unbind('click');
-    $('#setSmartArt').unbind('click');
-    $('#setChart').unbind('click');
 
-}
+
+
 // *********************************************************
 //
 // Word-Add-in-Load-and-write-Open-XML, https://github.com/OfficeDev/Word-Add-in-Load-and-write-Open-XML

@@ -24,80 +24,140 @@
 </head>
 <body>
      
-        <div class="ms-font-xl ms-fontWeight-semibold padding ms-bgColor-themeDark ms-fontColor-white ">Set Content Using OOXML</div>
+        <div class="ms-font-xl ms-fontWeight-semibold padding ggi-bgColor-themeDark ms-fontColor-white ">GGI Proposal Builder</div>
     <!-- The functions to insert various content types or display their OOXML markup are wired to the 11 buttons below in the file LoadingAndWritingOOXML.js-->
     <!-- The onchange event in the two radio buttons on this page calls the clickHandler function from LoadingAndWritingOOXML.js to reset the wiring for the 11 buttons below-->
-
-    <div id="content-main">
-      <div class="padding ms-font-m">
-        <div id="Content">
-            <div class="ms-font-m">
-                <p>Use this app to insert samples from a range of rich content types, as listed below. Or show the Office Open XML (OOXML) markup for a selected content type right on the page. Select an option and then click the button for the content type you need.</p>
+        <div id="content-main">
+            <div class="ggi-tab-holder ms-font-m">
+                <div id="addComponentsButton" class="ggi-tab active">
+                    Select Components
+                </div>
+                <div id="changeValuesButton" class="ggi-tab">
+                    Customize Values
+                </div>
             </div>
-            <p>
-                <input type="radio" name="radChoice" id="setOOXMLContent" value="content" checked="checked" onchange="clickHandler();" />
-                <label for="setOOXMLContent" style="margin-right:20px; font-weight:bold;">Set Content</label>
-                <input type="radio" name="radChoice" id="setOOXMLMarkup" value="markup" onchange="clickHandler();" />
-                <label for="setOOXMLMarkup" style="font-weight:bold;">Show me the OOXML</label>
-            </p>
-            <button class="ms-Button ms-Button--command" id="setFText">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Formatted Text</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setSText">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Styled Text</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setImage">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Simple Image</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setPhoto">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Formatted Photo</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setBox">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Text Box</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setShape">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Shape</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setControl">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Content Control</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setFTable">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Formatted Table</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setSTable">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Styled Table</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setSmartArt">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set SmartArt Diagram</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
-            <button class="ms-Button ms-Button--command" id="setChart">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
-                <span class="ms-Button-label">Set Chart</span>
-                <span class="ms-Button-description">Description of the action this button takes</span>
-            </button>
+            <div class="padding ms-font-m">
+
+                <div id="addComponents">
+                    <div class="ms-font-m">
+                        <p>Quickly assemble the components required to create your proposal. Click on the components in the order you wish them to appear in your document.</p>
+                    </div>
+
+                    <h3>Executive</h3>
+                    <button class="ms-Button ms-Button--command" id="addExecutiveSummary">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Executive Summary</span>
+                        <span class="ms-Button-description">Add Executive Summary</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addCoverLetter">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Cover Letter</span>
+                        <span class="ms-Button-description">Add Cover Letter</span>
+                    </button>
+
+                    <h3>Qualifications</h3>
+                    <button class="ms-Button ms-Button--command" id="addProfile">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Profile of GGI</span>
+                        <span class="ms-Button-description">Add Profile of GGI</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addTeamText">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Team Introductory Text</span>
+                        <span class="ms-Button-description">Add Team Introductory Text</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addOrgChart">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Organizational Chart</span>
+                        <span class="ms-Button-description">Add Organizational Chart</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addRoles">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Roles of Team Members</span>
+                        <span class="ms-Button-description">Add Roles of Team Members</span>
+                    </button>
+
+                    <h3>Project Team Member</h3>
+                    <button class="ms-Button ms-Button--command" id="addProfile">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Member Profile</span>
+                        <span class="ms-Button-description">Add Member Profile</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addRole">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Role of Member</span>
+                        <span class="ms-Button-description">Add Role of Member</span>
+                    </button>
+
+                    <h3>References</h3>
+                    <button class="ms-Button ms-Button--command" id="addReferences">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add References</span>
+                        <span class="ms-Button-description">Add References</span>
+                    </button>
+
+                    <h3>Key Features of Our Approach</h3>
+                    <button class="ms-Button ms-Button--command" id="addExamples">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Examples of Features</span>
+                        <span class="ms-Button-description">Add Examples of Features</span>
+                    </button>
+
+                    <h3>Improvements to the Methodology</h3>
+                    <button class="ms-Button ms-Button--command" id="addLargerSampleSizes">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Larger Sample Sizes</span>
+                        <span class="ms-Button-description">Add Larger Sample Sizes</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addCaseStudies">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Case Studies</span>
+                        <span class="ms-Button-description">Add Case Studies</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addSiteVisits">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Site Visits</span>
+                        <span class="ms-Button-description">Description of the action this button takes</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addSubgroupAnalysis">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Subgroup Analysis</span>
+                        <span class="ms-Button-description">Description of the action this button takes</span>
+                    </button>
+
+                    <h3>Phases and Tasks</h3>
+                    <button class="ms-Button ms-Button--command" id="addOverview">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add Overview of Phases</span>
+                        <span class="ms-Button-description">Description of the action this button takes</span>
+                    </button><br />
+                    <button class="ms-Button ms-Button--command" id="addStandardSummary">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--circlePlus"></i></span>
+                        <span class="ms-Button-label">Add StandardSummaryTable</span>
+                        <span class="ms-Button-description">Description of the action this button takes</span>
+                    </button>
+                    <br /><br /><br /><br />
+
+                    <button class="ms-Button ms-Button--command display-none" id="createContentControls">
+                        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--Edit"></i></span>
+                        <span class="ms-Button-label">Finalize Document</span>
+                        <span class="ms-Button-description">Description of the action this button takes</span>
+                    </button>
+
+                </div>
+                <div id="changeValues">
+                    <label for="clientName">Client Name: </label><input id="clientName" name="clientName" />
+
+                    <button class="ms-Button ms-Button--command" id="changeContentControl">
+                        <span class="ms-Button-icon">✎</span>
+                        <span class="ms-Button-label">Change Values</span>
+                        <span class="ms-Button-description">Description of the action this button takes</span>
+                    </button>
+                </div>
+
+
+            </div>
         </div>
-        </div>
-    </div>
 </body>
 </html>
 <!-- Word-Add-in-Load-and-write-Open-XML, https://github.com/OfficeDev/Word-Add-in-Load-and-write-Open-XML
