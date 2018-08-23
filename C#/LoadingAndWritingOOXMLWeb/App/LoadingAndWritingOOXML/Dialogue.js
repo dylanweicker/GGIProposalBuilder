@@ -19,19 +19,10 @@ let ROLES = "Roles of Team Members";
 // It ensures the DOM is ready before adding click handlers to buttons
 Office.initialize = function (reason) {
     $(document).ready(function () {
-        // If setSelectedDataAsync method is supported by the host application
-        // the UI buttons are hooked up to call the method else the buttons are removed
-        openDialog();
-
-        if (Office.context.document.setSelectedDataAsync) {
-            clickHandler();
-        }
-
-        else {
-            //Error Case -- Should remove buttons
-        }
+        // hookup UI buttons
+        clickHandler();
     });
-};
+}
 
 
 

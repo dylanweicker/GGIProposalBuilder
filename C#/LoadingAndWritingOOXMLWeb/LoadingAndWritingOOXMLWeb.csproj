@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LoadingAndWritingOOXMLWeb</RootNamespace>
-    <AssemblyName>LoadingAndWritingOOXMLWeb</AssemblyName>
+    <RootNamespace>GGIProposalBuilder</RootNamespace>
+    <AssemblyName>GGIProposalBuilder</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44305</IISExpressSSLPort>
@@ -62,6 +62,9 @@
   <ItemGroup>
     <Content Include="App\App.css" />
     <Content Include="App\App.js" />
+    <Content Include="App\LoadingAndWritingOOXML\DialogueHelper.js" />
+    <Content Include="App\LoadingAndWritingOOXML\Dialogue.html" />
+    <Content Include="App\LoadingAndWritingOOXML\Dialogue.js" />
     <Content Include="App\LoadingAndWritingOOXML\LoadingAndWritingOOXML.css" />
     <Content Include="App\LoadingAndWritingOOXML\LoadingAndWritingOOXML.html" />
     <Content Include="App\LoadingAndWritingOOXML\LoadingAndWritingOOXML.js" />

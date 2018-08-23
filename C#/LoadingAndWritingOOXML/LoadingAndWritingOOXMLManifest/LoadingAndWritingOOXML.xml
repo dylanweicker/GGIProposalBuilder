@@ -10,6 +10,10 @@
   <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
   <IconUrl DefaultValue="~remoteAppUrl/Images/ggi-logo-32x32.png" />
   <HighResolutionIconUrl DefaultValue="~remoteAppUrl/Images/ggi-logo-64x64.png" />
+  <AppDomains>
+    <AppDomain>https://code.jquery.com</AppDomain>
+    <AppDomain>https://stackpath.bootstrapcdn.com</AppDomain>
+  </AppDomains>
   <Hosts>
     <Host Name="Document" />
   </Hosts>
